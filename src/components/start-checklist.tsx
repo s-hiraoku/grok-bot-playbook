@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useSyncExternalStore } from "react";
+
+const STORAGE_KEY = "grok-bot-playbook:start-checklist";
 
 const STEPS = [
   {
@@ -40,11 +42,48 @@ const STEPS = [
   },
 ];
 
+const STEP_IDS = new Set(STEPS.map((step) => step.id));
+
+function readStoredDone(): string[] {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return [];
+
+    const parsed: unknown = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+
+    return parsed.filter(
+      (id): id is string => typeof id === "string" && STEP_IDS.has(id),
+    );
+  } catch {
+    return [];
+  }
+}
+
+const checklistListeners = new Set<() => void>();
+
+function subscribeToChecklist(onStoreChange: () => void) {
+  checklistListeners.add(onStoreChange);
+  return () => {
+    checklistListeners.delete(onStoreChange);
+  };
+}
+
+function writeStoredDone(done: string[]) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(done));
+    checklistListeners.forEach((listener) => listener());
+  } catch {
+    // Ignore quota or private-mode write failures.
+  }
+}
+
 export function StartChecklist() {
-  const [done, setDone] = useState<string[]>([]);
+  const done = useSyncExternalStore(subscribeToChecklist, readStoredDone, () => []);
 
   function toggle(id: string) {
-    setDone((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
+    const next = done.includes(id) ? done.filter((x) => x !== id) : [...done, id];
+    writeStoredDone(next);
   }
 
   const progress = Math.round((done.length / STEPS.length) * 100);
