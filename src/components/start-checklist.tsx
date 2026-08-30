@@ -1,7 +1,6 @@
 "use client";
 
-import { useMemo, useSyncExternalStore } from "react";
-import { Checkbox } from "@/components/ui/checkbox";
+import { useState } from "react";
 
 const STEPS = [
   {
@@ -41,44 +40,11 @@ const STEPS = [
   },
 ];
 
-const KEY = "grok-bot-start-checklist";
-const listeners = new Set<() => void>();
-
-function subscribe(onStoreChange: () => void) {
-  listeners.add(onStoreChange);
-  window.addEventListener("storage", onStoreChange);
-  return () => {
-    listeners.delete(onStoreChange);
-    window.removeEventListener("storage", onStoreChange);
-  };
-}
-
-function getSnapshot() {
-  return window.localStorage.getItem(KEY) ?? "[]";
-}
-
-function getServerSnapshot() {
-  return "[]";
-}
-
-function emit() {
-  for (const listener of listeners) listener();
-}
-
 export function StartChecklist() {
-  const raw = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-  const done = useMemo(() => {
-    try {
-      return JSON.parse(raw) as string[];
-    } catch {
-      return [];
-    }
-  }, [raw]);
+  const [done, setDone] = useState<string[]>([]);
 
   function toggle(id: string) {
-    const next = done.includes(id) ? done.filter((x) => x !== id) : [...done, id];
-    window.localStorage.setItem(KEY, JSON.stringify(next));
-    emit();
+    setDone((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
   }
 
   const progress = Math.round((done.length / STEPS.length) * 100);
@@ -101,24 +67,32 @@ export function StartChecklist() {
           const checked = done.includes(step.id);
           return (
             <li key={step.id}>
-              <label
-                className={`flex cursor-pointer gap-4 rounded-xl border p-4 transition-colors ${
+              <button
+                type="button"
+                onClick={() => toggle(step.id)}
+                aria-pressed={checked}
+                className={`flex w-full cursor-pointer gap-4 rounded-xl border p-4 text-left transition-colors ${
                   checked
                     ? "border-primary/30 bg-primary/8"
                     : "border-border/70 bg-card/50 hover:bg-secondary/40"
                 }`}
               >
-                <Checkbox
-                  checked={checked}
-                  onCheckedChange={() => toggle(step.id)}
-                  className="mt-1"
-                />
+                <span
+                  aria-hidden
+                  className={`mt-1 flex size-4 shrink-0 items-center justify-center rounded-[4px] border ${
+                    checked
+                      ? "border-primary bg-primary text-primary-foreground"
+                      : "border-input"
+                  }`}
+                >
+                  {checked ? "✓" : ""}
+                </span>
                 <div>
                   <p className="font-mono text-[11px] text-primary">0{index + 1}</p>
                   <h3 className="font-heading mt-1 text-xl">{step.title}</h3>
                   <p className="mt-2 text-sm leading-7 text-muted-foreground">{step.body}</p>
                 </div>
-              </label>
+              </button>
             </li>
           );
         })}

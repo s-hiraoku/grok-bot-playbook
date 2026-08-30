@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { NAV } from "@/lib/nav";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
@@ -25,16 +24,15 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
               Field Playbook
             </span>
           </Link>
-          <Button
+          <button
             type="button"
-            variant="ghost"
-            size="icon-sm"
-            className="md:hidden"
+            className="inline-flex size-9 items-center justify-center rounded-md text-foreground md:hidden"
             onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
             aria-label={open ? "メニューを閉じる" : "メニューを開く"}
           >
-            {open ? <X /> : <Menu />}
-          </Button>
+            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
           <nav className="hidden items-center gap-1 md:flex">
             {NAV.filter((item) => item.href !== "/handoff")
               .slice(0, 3)

@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Copy } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 export function CopyButton({
   text,
@@ -22,15 +20,12 @@ export function CopyButton({
   }
 
   return (
-    <Button
+    <button
       type="button"
-      variant="outline"
-      size="sm"
       onClick={onCopy}
-      className={className}
+      className={`inline-flex h-8 shrink-0 items-center rounded-lg border border-border bg-background px-2.5 text-sm hover:bg-muted ${className ?? ""}`}
     >
-      {copied ? <Check data-icon="inline-start" /> : <Copy data-icon="inline-start" />}
       {copied ? "コピー済み" : label}
-    </Button>
+    </button>
   );
 }

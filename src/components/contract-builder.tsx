@@ -2,8 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { CopyButton } from "@/components/copy-button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 
 const DEFAULTS = {
   name: "Piper",
@@ -14,6 +12,9 @@ const DEFAULTS = {
   approval: "本番設定、アラート、顧客データには触れない。変更が必要なら提案だけ出す。",
   failure: "ソースに入れない、またはデータが古い場合は推測せず欠測を報告する。",
 };
+
+const fieldClass =
+  "w-full rounded-lg border border-input bg-transparent px-2.5 py-2 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50";
 
 function buildContract(v: typeof DEFAULTS) {
   return [
@@ -54,21 +55,23 @@ export function ContractBuilder() {
             <span className="mb-1.5 block text-sm">{field.label}</span>
             <span className="mb-2 block text-xs text-muted-foreground">{field.hint}</span>
             {field.rows ? (
-              <Textarea
+              <textarea
                 value={values[field.key]}
                 onChange={(e) => set(field.key, e.target.value)}
                 rows={field.rows}
+                className={fieldClass}
               />
             ) : (
-              <Input
+              <input
                 value={values[field.key]}
                 onChange={(e) => set(field.key, e.target.value)}
+                className={`${fieldClass} h-9`}
               />
             )}
           </label>
         ))}
       </div>
-      <div className="lg:sticky lg:top-24 h-fit">
+      <div className="h-fit lg:sticky lg:top-24">
         <div className="flex items-center justify-between gap-3">
           <h3 className="font-heading text-xl">Bot説明文</h3>
           <CopyButton text={contract} label="説明文をコピー" />
