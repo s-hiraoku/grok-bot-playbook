@@ -1,25 +1,25 @@
-# Grok Bot 手帳
+# Grok Bot Playbook
 
-常時稼働するAI同僚 **Grok Bot** を、役割契約・依頼の型・Skill / Routine・承認境界まで実務で使える形に落とした現場手帳です。
+A field playbook for running **Grok Bot** as an always-on AI colleague — from role contracts and request templates to Skills, Routines, and approval boundaries.
 
-チャットの延長として使うのではなく、名前のある担当者に仕事を渡し、成功した手順だけを自動化する、という運用を前提にしています。
+It assumes you treat Grok Bot as a named teammate you hand work to, not as an extension of chat, and automate only workflows that have already succeeded once.
 
-## できること
+## What it covers
 
-- 5つの原則と、先に捨てる誤解
-- 最初の30分チェックリスト（ブラウザに保存）
-- 役割契約（Bot説明文）の作成とコピー
-- 依頼の5点セットと、すぐ使えるプロンプト
-- Skill / Routine / イベントトリガーの進め方
-- 少人数のチーム編成と共有コンピュータの境界
-- 公式ユースケースを日本語化した初回依頼
-- Grok Botへ渡す役割契約・Skill保存依頼・添付用 `.md`
+- Five principles and common misconceptions to drop early
+- A first-30-minutes checklist (saved in the browser)
+- Role contract (Bot description) builder with copy-to-clipboard
+- The five-part request template and ready-to-use prompts
+- How to move from Skills to Routines to event triggers
+- Small-team setup and shared-computer boundaries
+- First requests based on official use cases (localized in Japanese in the app)
+- Handoff pack for Grok Bot: role contract, Skill save request, and attachable `.md` files
 
-内容の骨格は [Grok Bot 公式ドキュメント](https://docs.x.ai/grok-bot/get-started) と [発表記事](https://x.ai/news/introducing-grok-bot) に合わせています。プラン、トリガー、画面は変わるので、手元のアプリを正としてください。
+The structure follows the [official Grok Bot documentation](https://docs.x.ai/grok-bot/get-started) and the [announcement post](https://x.ai/news/introducing-grok-bot). Plans, triggers, and UI change over time — treat your local app as the source of truth.
 
-## 動かし方
+## Run it
 
-必要環境: Node.js 20 以降
+Requirements: Node.js 20 or later
 
 ```bash
 npm install
@@ -27,8 +27,8 @@ npm run build
 npm start
 ```
 
-ブラウザで [http://127.0.0.1:43173](http://127.0.0.1:43173) を開きます。開発中は `npm run dev`（webpack）でも動けます。
+Open [http://127.0.0.1:43173](http://127.0.0.1:43173) in your browser. For development, `npm run dev` (webpack) also works.
 
-## この手帳が扱わないこと
+## Out of scope
 
-Grok Bot 本体の代替ではありません。アカウント作成、課金、コネクタの認可は公式アプリ側で行います。Enterprise 向けの契約条件や最新料金も、Cursor / SuperGrok の画面を確認してください。
+This is not a replacement for Grok Bot itself. Account creation, billing, and connector authorization happen in the official app. For Enterprise terms and current pricing, check the Cursor / SuperGrok UI.
