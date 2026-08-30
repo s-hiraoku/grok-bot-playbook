@@ -23,17 +23,11 @@
 
 ```bash
 npm install
-npm run dev
-```
-
-ブラウザで [http://127.0.0.1:43173](http://127.0.0.1:43173) を開きます。
-
-本番ビルド:
-
-```bash
 npm run build
 npm start
 ```
+
+ブラウザで [http://127.0.0.1:43173](http://127.0.0.1:43173) を開きます。開発中は `npm run dev`（webpack）でも動けます。
 
 ## この手帳が扱わないこと
 
