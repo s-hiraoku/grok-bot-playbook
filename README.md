@@ -13,6 +13,7 @@
 - Skill / Routine / イベントトリガーの進め方
 - 少人数のチーム編成と共有コンピュータの境界
 - 公式ユースケースを日本語化した初回依頼
+- Grok Botへ渡す役割契約・Skill保存依頼・添付用 `.md`
 
 内容の骨格は [Grok Bot 公式ドキュメント](https://docs.x.ai/grok-bot/get-started) と [発表記事](https://x.ai/news/introducing-grok-bot) に合わせています。プラン、トリガー、画面は変わるので、手元のアプリを正としてください。
 

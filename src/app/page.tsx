@@ -82,25 +82,35 @@ export default function HomePage() {
 
       <section className="mb-14">
         <h2 className="font-heading mb-4 text-2xl">最初にやること</h2>
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-3">
           <Link
-            href="/start"
+            href="/handoff"
             className="rounded-2xl border border-primary/30 bg-primary/8 p-5 transition-colors hover:bg-primary/12"
           >
             <Badge variant="secondary">推奨</Badge>
+            <h3 className="font-heading mt-3 text-xl">Grok Botに渡す</h3>
+            <p className="mt-2 text-sm leading-7 text-muted-foreground">
+              役割契約と保存依頼をコピーし、自分のBotのSkillにする。
+            </p>
+          </Link>
+          <Link
+            href="/start"
+            className="rounded-2xl border border-border/70 bg-card/60 p-5 transition-colors hover:bg-secondary/60"
+          >
+            <Badge variant="outline">次</Badge>
             <h3 className="font-heading mt-3 text-xl">最初の30分</h3>
             <p className="mt-2 text-sm leading-7 text-muted-foreground">
-              読み取りと下書きだけの仕事を1件渡す。コネクタは最小、承認は広め。
+              読み取りと下書きだけの仕事を1件渡す。コネクタは最小。
             </p>
           </Link>
           <Link
             href="/contract"
             className="rounded-2xl border border-border/70 bg-card/60 p-5 transition-colors hover:bg-secondary/60"
           >
-            <Badge variant="outline">次</Badge>
+            <Badge variant="outline">任意</Badge>
             <h3 className="font-heading mt-3 text-xl">役割契約を書く</h3>
             <p className="mt-2 text-sm leading-7 text-muted-foreground">
-              名前、仕事、ソース、成果物、証拠、止まって聞く地点を1枚にする。
+              別の仕事用に、名前と境界を1枚から作る。
             </p>
           </Link>
         </div>

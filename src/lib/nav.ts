@@ -7,4 +7,5 @@ export const NAV = [
   { href: "/team", label: "チーム編成", kicker: "06" },
   { href: "/safety", label: "承認と境界", kicker: "07" },
   { href: "/playbooks", label: "役割別例", kicker: "08" },
+  { href: "/handoff", label: "Grok Botに渡す", kicker: "09" },
 ] as const;

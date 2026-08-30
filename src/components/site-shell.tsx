@@ -36,25 +36,32 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
             {open ? <X /> : <Menu />}
           </Button>
           <nav className="hidden items-center gap-1 md:flex">
-            {NAV.slice(0, 4).map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "rounded-md px-2.5 py-1.5 text-sm transition-colors",
-                  pathname === item.href
-                    ? "bg-secondary text-primary"
-                    : "text-muted-foreground hover:text-foreground",
-                )}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {NAV.filter((item) => item.href !== "/handoff")
+              .slice(0, 3)
+              .map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    "rounded-md px-2.5 py-1.5 text-sm transition-colors",
+                    pathname === item.href
+                      ? "bg-secondary text-primary"
+                      : "text-muted-foreground hover:text-foreground",
+                  )}
+                >
+                  {item.label}
+                </Link>
+              ))}
             <Link
-              href="/playbooks"
-              className="rounded-md px-2.5 py-1.5 text-sm text-muted-foreground hover:text-foreground"
+              href="/handoff"
+              className={cn(
+                "rounded-md px-2.5 py-1.5 text-sm",
+                pathname === "/handoff"
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-primary/90 text-primary-foreground hover:bg-primary",
+              )}
             >
-              例
+              Grok Botに渡す
             </Link>
           </nav>
         </div>
